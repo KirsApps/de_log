@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 /// The abstract log handler class.
 abstract class LogHandler<T> {
-  /// Handles given [data].
+  /// Handles the given [data] that is passing by the [DeLog].
   void handle(RecordData<T> data);
 
   /// Frees resources that this handler use.
@@ -12,10 +12,10 @@ abstract class LogHandler<T> {
 }
 
 /// The queue log handler. Records add to the queue
-/// and will be available with [QueueWorker] asynchronous
+/// and will be available with the [QueueWorker] asynchronous
 /// in the [handleRecords] method.
 abstract class QueueLogHandler<T> extends LogHandler<T> {
-  /// The queueWorker.
+  /// The [QueueWorker].
   final _worker = QueueWorker<RecordData<T>>(DataQueue<RecordData<T>>());
 
   @override
@@ -25,6 +25,6 @@ abstract class QueueLogHandler<T> extends LogHandler<T> {
   @mustCallSuper
   Future<void> dispose() async => _worker.terminate();
 
-  /// Handles records that will be available asynchronous through [QueueWorker].
+  /// Handles records that will be available asynchronous through the [QueueWorker].
   Future<void> handleRecords();
 }

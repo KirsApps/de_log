@@ -21,5 +21,6 @@ enum Level {
 
 /// The extension contains the method for getting the severity level.
 extension SeverityLevel on Level {
+  /// Returns the severity level that describes this.
   int get severityLevel => ((index + 1) * 3) * 100;
 }
