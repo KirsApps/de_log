@@ -32,5 +32,6 @@ abstract class QueueLogHandler<T> extends LogHandler<T> {
   Future<void> dispose() async => worker.terminate();
 
   /// Handles records that will be available asynchronous through the [QueueWorker].
+  @protected
   Future<void> handleRecords();
 }

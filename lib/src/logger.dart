@@ -36,6 +36,6 @@ class DeLog<T> {
     }
   }
 
-  /// Frees resources that this logger use.
+  /// Disposes of all logger handlers.
   Future<void> dispose() => Future.wait(_handlers.map((e) => e.dispose()));
 }
