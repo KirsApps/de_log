@@ -16,14 +16,15 @@ abstract class LogHandler<T> {
 /// in the [handleRecords] method.
 abstract class QueueLogHandler<T> extends LogHandler<T> {
   /// The [QueueWorker].
-  final _worker = QueueWorker<RecordData<T>>(DataQueue<RecordData<T>>());
+  @protected
+  final worker = QueueWorker<RecordData<T>>(DataQueue<RecordData<T>>());
 
   @override
-  void handle(RecordData<T> data) => _worker.add(data);
+  void handle(RecordData<T> data) => worker.add(data);
 
   @override
   @mustCallSuper
-  Future<void> dispose() async => _worker.terminate();
+  Future<void> dispose() async => worker.terminate();
 
   /// Handles records that will be available asynchronous through the [QueueWorker].
   Future<void> handleRecords();
