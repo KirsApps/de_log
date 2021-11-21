@@ -15,6 +15,11 @@ abstract class LogHandler<T> {
 /// and will be available with the [QueueWorker] asynchronous
 /// in the [handleRecords] method.
 abstract class QueueLogHandler<T> extends LogHandler<T> {
+  /// Creates the [QueueLogHandler] that runs the [handleRecords] method.
+  QueueLogHandler() {
+    handleRecords();
+  }
+
   /// The [QueueWorker].
   @protected
   final worker = QueueWorker<RecordData<T>>(DataQueue<RecordData<T>>());
