@@ -56,6 +56,7 @@ You can see the example usage of these handlers in de_log_example.dart.
 
 
 You can dispose of the logger. When you call the dispose method, it disposes of all handlers.
+
 All futures in QueueLogHandler descendants will throw the TerminatedException. It is good practice wrapping your code in the try block with on TerminatedException clause. 
 When you catch the TerminatedException, you know that the logger was disposed of and perform resources cleanup.
 
