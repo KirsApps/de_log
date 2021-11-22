@@ -7,30 +7,76 @@
 [![pub](https://img.shields.io/pub/v/de_log.svg)](https://pub.dev/packages/de_log)
 [![style: lint](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lint)
 
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+The declarative logger allows you to create your own records and records handlers.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+To use this logger, you must create your own record and pass the type to the logger.
+Also, you need to create handlers for this record and pass them to the logger constructor.
 
 ```dart
-const like = 'sample';
+/// The record class.
+class SimpleStringMessage {
+  String message;
+  String? description;
+  SimpleStringMessage(this.message, this.description);
+}
+
+/// The handler that prints all records.
+class PrintHandler<T> extends LogHandler<T> {
+  @override
+  void handle(RecordData data) {
+    print(data.record);
+  }
+
+  @override
+  Future<void> dispose() async {}
+}
+
+final log = DeLog<SimpleStringMessage>([PrintHandler()]);
+
+/// log fatal message
+log.fatal('fatal');
+
+/// log trace message
+log.trace('trace');
 ```
 
-## Additional information
+## Handlers
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+Handlers need to perform actions on received records, for example, print, store, send them through a network, etc.
+There are two classes for handlers:
+
+* LogHandler - The base class that handles records synchronously.
+* QueueLogHandler - The base class that handles records asynchronous in the queue.
+
+You can see the example usage of these handlers in de_log_example.dart.
+
+## Dispose
+
+
+You can dispose of the logger. When you call the dispose method, it disposes of all handlers.
+All futures in QueueLogHandler descendants will throw the TerminatedException. It is good practice wrapping your code in the try block with on TerminatedException clause. 
+When you catch the TerminatedException, you know that the logger was disposed of and perform resources cleanup.
+
+```dart
+class QueueAsyncHandler<T> extends QueueLogHandler<T> {
+  @override
+  Future<void> handleRecords() async {
+    try {
+      // Here we get one record from the queue when it is available.
+      // You can use other commands from the QueueWorker class.
+      // For example:
+      // worker.take(4) - take 4 records
+      // ignore: unused_local_variable
+      final data = await worker.next;
+      // handle records
+
+      // Here we call this method again for waiting for new records.
+      await handleRecords();
+    } on TerminatedException {
+      // logger was disposed
+    }
+  }
+}
+```

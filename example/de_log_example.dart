@@ -7,9 +7,13 @@ class QueueAsyncHandler<T> extends QueueLogHandler<T> {
     try {
       // Here we get one record from the queue when it is available.
       // You can use other commands from the QueueWorker class.
+      // For example:
+      // worker.take(4) - take 4 records
       // ignore: unused_local_variable
       final data = await worker.next;
       // handle records
+
+      // Here we call this method again for waiting for new records.
       await handleRecords();
     } on TerminatedException {
       // logger was disposed
