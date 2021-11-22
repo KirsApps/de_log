@@ -1,15 +1,12 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+<p align="center">
+<img src="https://raw.githubusercontent.com/KirsApps/de_log/master/assets/logo.png" height="350" alt="DeLog" />
+</p>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+[![codecov](https://codecov.io/gh/KirsApps/de_log/branch/master/graph/badge.svg)](https://codecov.io/gh/KirsApps/de_log)
+[![Build Status](https://github.com/KirsApps/de_log/workflows/build/badge.svg)](https://github.com/KirsApps/de_log/actions?query=workflow%3A"build"+branch%3Amaster)
+[![pub](https://img.shields.io/pub/v/de_log.svg)](https://pub.dev/packages/de_log)
+[![style: lint](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lint)
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
 
 TODO: Put a short description of the package here that helps potential users
 know whether this package might be useful for them.
