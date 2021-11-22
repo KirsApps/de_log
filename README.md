@@ -42,6 +42,8 @@ log.fatal('fatal');
 log.trace('trace');
 ```
 
+This package contains the LogRecord class that you can use as the record. This class has parameters for the log function from the dart:developer package.
+
 ## Handlers
 
 Handlers need to perform actions on received records, for example, print, store, send them through a network, etc.
